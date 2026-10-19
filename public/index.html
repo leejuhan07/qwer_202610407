@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>홍길동(학생이름) 할일</title>
+  <title>이주한 할일</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -72,7 +72,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>홍길동(학생이름) 할일</h1>
+    <h1>이주한 할일</h1>
     <div class="date" id="date"></div>
 
     <form id="form" action="/todo" method="post">
@@ -97,7 +97,6 @@
       year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
     });
 
-    // method-override용 form 생성: POST {action}?_method={method}
     function createForm(action, method, className) {
       const f = document.createElement('form');
       f.className = className || 'inline-form';
@@ -125,7 +124,6 @@
         edit.textContent = '수정';
         edit.addEventListener('click', () => startEdit(li, todo, todos));
 
-        // 삭제: DELETE /todo/[id]
         const delForm = createForm(`/todo/${todo.id}`, 'DELETE');
         const del = document.createElement('button');
         del.type = 'submit';
@@ -140,7 +138,6 @@
       count.textContent = todos.length ? `전체 ${todos.length}` : '';
     }
 
-    // 수정: PUT /todo/[id]  (text=...)
     function startEdit(li, todo, todos) {
       const editForm = createForm(`/todo/${todo.id}`, 'PUT', 'inline-form edit-form');
 
@@ -170,7 +167,6 @@
       editInput.focus();
     }
 
-    // 목록 조회: GET /todo  → [{ id, text }, ...]
     fetch('/todo')
       .then((res) => {
         if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
